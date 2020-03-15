@@ -1,9 +1,0 @@
-<template>
-  <view>
-    <import src="../message.wxml"/>
-  </view>
-</template>
-
-<script>
-Page({})
-</script>

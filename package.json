@@ -6,16 +6,7 @@
     }
   },
   "devDependencies": {
-    "husky": "^2.3.0",
-    "lerna": "^3.16.4"
+    "lerna": "2.2.0"
   },
-  "scripts": {},
-  "dependencies": {
-    "debug": "^4.1.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit"
-    }
-  }
+  "dependencies": {}
 }

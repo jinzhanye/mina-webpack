@@ -1,5 +1,0 @@
----
-usingComponents:
-  b: ./component-b
-  c: ./component-c.mina
----

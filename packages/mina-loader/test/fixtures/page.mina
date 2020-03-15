@@ -1,0 +1,30 @@
+<config>
+{
+  "name": "mina"
+}
+</config>
+
+<style>
+text.blue {
+  color: #00f;
+  background: url(logo.png);
+}
+</style>
+
+<template>
+  <view>
+    <text class="blue">{{msg}}</text>
+    <image src="logo.png" />
+  </view>
+</template>
+
+<script>
+require('./dependency.js')
+Page({
+  onLoad () {
+    this.setData({
+      msg: 'Hello from Page!',
+    })
+  },
+})
+</script>

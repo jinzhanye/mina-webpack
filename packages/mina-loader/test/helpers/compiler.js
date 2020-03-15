@@ -5,70 +5,53 @@ import MemoryFS from 'memory-fs'
 
 const root = path.resolve(__dirname, '..')
 
+function extname (fullpath, ext) {
+  return path.format({
+    dir: path.dirname(fullpath),
+    name: path.basename(fullpath, path.extname(fullpath)),
+    ext: ext,
+  })
+}
+
 export default (options = {}) => {
   const mfs = new MemoryFS()
 
-  options = merge.smart(
-    {
-      mode: 'none',
-      context: root,
-      output: {
-        path: '/',
-        publicPath: '/',
-      },
-      module: {
-        rules: [
-          {
-            test: /\.mina$/,
-            use: {
-              loader: require.resolve('../..'),
-              // TODO this should'be add .loaders to configure different loaders for script/style
-            },
-          },
-          {
-            test: /\.png$/,
-            use: {
-              loader: 'file-loader',
-              options: {
-                name: 'assets/[name].[hash:6].[ext]',
-              },
-            },
-          },
-          {
-            test: /\.wxml$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: 'wxml/[name].[hash:6].[ext]',
-                },
-              },
-              {
-                loader: '@tinajs/wxml-loader',
-                options: {
-                  raw: true,
-                },
-              },
-            ],
-          },
-        ],
-      },
+  options = merge.smart({
+    context: root,
+    output: {
+      path: '/',
     },
-    options
-  )
+    module: {
+      rules: [
+        {
+          test: /\.mina$/,
+          use: {
+            loader: require.resolve('../..'),
+          },
+        },
+        {
+          test: /\.png$/,
+          use: {
+            loader: "file-loader",
+            options: {
+              name: 'assets/[name].[hash:6].[ext]'
+            },
+          },
+        },
+      ],
+    },
+  }, options)
 
   return {
     mfs,
-    compile() {
+    compile () {
       const compiler = webpack(options)
       compiler.outputFileSystem = mfs
       return new Promise((resolve, reject) => {
         compiler.run((err, stats) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(stats)
-          }
+          if (err) reject(err)
+
+          resolve(stats)
         })
       })
     },

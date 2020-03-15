@@ -1,7 +1,0 @@
-<script lang="yellowify">
-Page({
-  onLoad () {
-    console.log('blue');
-  }
-})
-</script>

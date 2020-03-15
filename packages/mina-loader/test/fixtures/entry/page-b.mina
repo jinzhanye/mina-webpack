@@ -1,7 +1,0 @@
-<template>
-  <view>Page B</view>
-</template>
-
-<script>
-Page({})
-</script>
